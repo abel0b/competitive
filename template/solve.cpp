@@ -1,7 +1,19 @@
 // 2020 Abel Calluaud <abel0b@pm.me>
 
 #include <bits/stdc++.h>
+#ifdef DEBUG
+#include "debug.h"
+#else
+#define chk(x) do {} while(0)
+#define db(...) do {} while(0)
+#endif
+
 using namespace std;
+
+const char nl = '\n';
+typedef pair<int,int> pii;
+typedef vector<int> veci;
+typedef vector<string> vecs;
 
 struct blem {
     vector<int> vals;

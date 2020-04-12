@@ -13,7 +13,6 @@ void db(T& x, U& y) {
     cerr << x << " " << y << endl;
 }
 
-
 template<typename T, typename U, typename V>
 void db(T& x, U& y, V& z) {
     cerr << x << " " << y << " " << z << endl;

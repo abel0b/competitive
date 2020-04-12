@@ -1,13 +1,13 @@
-CXXFLAGS = -march=native -std=c++14 -pthread
+CXXFLAGS = -std=c++14 -pthread
 PROBLEM = $$(basename $$(dirname $$(dirname $$(pwd))))/$$(basename $$(dirname $$(pwd)))/$$(basename $$(pwd))
 
 all: release
 
-release: CXXFLAGS += -O3
-release: solve
-
 debug: CXXFLAGS += -DDEBUG -O0 -g
 debug: solve
+
+release: CXXFLAGS += -O3 -march=native
+release: solve
 
 solve: solve.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
@@ -23,7 +23,7 @@ test: debug small.in small.out
 		cat small.in | ./solve;\
 	fi
 
-perf: all
+perf: release
 	cat small.in | perf stat ./solve
 
 clean:
