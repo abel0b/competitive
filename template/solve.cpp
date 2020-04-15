@@ -1,58 +1,67 @@
-// 2020 Abel Calluaud <abel0b@pm.me>
+// 2020 @abel0b
 
 #include <bits/stdc++.h>
+
 #ifdef DEBUG
 #include "debug.h"
 #else
-#define chk(x) do {} while(0)
-#define db(...) do {} while(0)
+#ifdef __GCC__
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#endif
+#define check(...) 1337
+#define debug(...) 1337
 #endif
 
 using namespace std;
 
-const char nl = '\n';
-typedef pair<int,int> pii;
-typedef vector<int> veci;
-typedef vector<string> vecs;
-
 struct blem {
+    int case_num;
+
+    // Problem
     vector<int> vals;
-    bool solve();
-    friend istream& operator>>(istream& is, blem& pb);
+
+    // Solution
+    long long int sum = 0;
+
+    blem(int case_num, istream& is): case_num(case_num) {
+        int nvals;
+        is >> nvals;
+        vals.resize(nvals);
+        for (int i = 0; i < nvals; i++) {
+            is >> vals[i];
+        }
+    }
+
+    void solve() {
+        for (int i: vals) {
+            sum += i;
+        }
+    }
+
+    void write(ostream& os) {
+        os << "Case #" << case_num << ": " << sum << "\n";
+    }
 };
 
-bool blem::solve() {
-    int sum = 0;
-    for (int i: vals) {
-        sum += i;
-    }
-    cout << sum << "\n";
-    return true;
-}
-
-istream& operator>>(istream& is, blem& pb) {
-    int nvals;
-    is >> nvals;
-    pb.vals.resize(nvals);
-    for (int i = 0; i < nvals; i++) {
-        is >> pb.vals[i];
-    }
-    return is;
-}
-
 int main() {
+#ifndef DEBUG
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    int ntests;
-    cin >> ntests;
+    cin.tie(nullptr);
+    cerr.tie(nullptr);
+#endif
 
-    for(int test=1; test<=ntests; ++test) {
-        blem pb;
-        cin >> pb;
-        std::cout << "Case #" << test << ": ";
-        assert(pb.solve());
+    istream& input = cin;
+    ostream& output = cout;
+
+    int num_cases;
+    cin >> num_cases;
+
+    for(int case_num=1; case_num<=num_cases; ++case_num) {
+        blem test_case(case_num, input);
+        test_case.solve();
+        test_case.write(output);
     }
 
-    return 0;       
+    return 0;
 }

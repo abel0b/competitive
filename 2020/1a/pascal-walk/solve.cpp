@@ -1,6 +1,9 @@
-// 2020 Abel Calluaud <abel0b@pm.me>
+// 2020 @abel0b
 
+#ifndef NOSYSH
 #include <bits/stdc++.h>
+#endif
+
 #ifdef DEBUG
 #include "debug.h"
 #else
@@ -128,9 +131,6 @@ bool blem::solve(int tc) {
         sum += pasc.at(pt);
         cout << pt.first << " " << pt.second << nl;
     }
-    chk(val == n);
-    db("okkkk", sum, "__", n);
-    chk(sum == n);
 
     return true;
 }

@@ -1,32 +1,34 @@
-CXXFLAGS = -march=native -std=c++14 -pthread
-PROBLEM = $$(basename $$(dirname $$(dirname $$(pwd))))/$$(basename $$(dirname $$(pwd)))/$$(basename $$(pwd))
+CXX = g++
+CXXFLAGS = -std=c++14 -pthread
 
 all: release
 
 release: CXXFLAGS += -O3
 release: solve
 
-debug: CXXFLAGS += -O0 -g
+debug: CXXFLAGS += -DDEBUG -O0 -g -Wall -Wextra
 debug: solve
 
-solve: solve.cpp
-	$(CXX) $(CXXFLAGS) $^ -o $@
+strict: CXXFLAGS += -DDEBUG -O0 -g -Wall -Wextra -Wfatal-errors -Werror
+strict: solve
 
-test: debug small.in small.out
-	@if cat small.in | ./solve | cmp -s - small.out; then\
-		echo "\e[32mPASS\e[0m $(PROBLEM)";\
+solve: solve.cpp debug.h
+	$(CXX) $(CXXFLAGS) solve.cpp -o $@
+
+test: $(subst ./,test-,$(basename $(shell find . -name *.in)))
+
+test-%: debug %.in %.out
+	@if cat $*.in | ./solve | cmp -s - $*.out; then\
+		echo "\e[32mPASS\e[0m $*";\
 	else\
-		echo "\e[31mFAIL\e[0m $(PROBLEM)";\
+		echo "\e[31mFAIL\e[0m $*";\
 		echo "\e[32mExpected:\e[0m";\
 		cat small.out;\
 		echo "\e[31mActual:\e[0m";\
 		cat small.in | ./solve;\
 	fi
 
-perf: all
-	cat small.in | perf stat ./solve
-
 clean:
 	rm -f solve
 
-.PHONY: all release debug test perf clean
+.PHONY: all release debug strict test% clean

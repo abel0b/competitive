@@ -3,46 +3,63 @@
 
 #include <bits/stdc++.h>
 
-using namespace std;
+#define yo std::cerr << "YO[" << __FILE__ << ":" << __LINE__ << "]" << std::endl;std::cerr.flush();std::cout.flush();exit(0)
+#define check(x) std::cerr.flush();std::cout.flush();std::assert(x)
+#define debug(...) print_debug(static_cast<const char*>(__FILE__), __LINE__, __VA_ARGS__)
 
-#define dout cout << __FILE__ << "(" << __LINE__ << ")"
-#define quit cerr.flush();cout.flush();exit(0)
-#define chk(x) cerr.flush();cout.flush();assert(x)
-
-template<typename T>
-void db(T& t1) {
-    dout << t1 << endl;
+template<typename Arg, typename... Args>
+void print_debug(const char * filename, int line, Arg&& arg, Args&&... args) {
+    std::cerr << '[' << filename << ':' << line << "] " << std::forward<Arg>(arg);
+    using expander = int[];
+    (void)expander{0,(void(std::cerr << " " << std::forward<Args>(args)), 0)...};
+    std::cerr << std::endl;
 }
 
-template<typename T1, typename T2>
-void db(T1& t1, T2& t2) {
-    dout << t1 << " " << t2 << endl;
-}
-
-template<typename T1, typename T2, typename T3>
-void db(T1& t1, T2& t2, T3& t3) {
-    dout << t1 << " " << t2 << " " << t3 << endl;
-}
-
-template<typename T1, typename T2, typename T3, typename T4>
-void db(T1& t1, T2& t2, T3& t3, T4& t4) {
-    dout << t1 << " " << t2 << " " << t3 << " " << t4 << endl;
-}
-
-template<typename T>
-ostream& operator<<(ostream& os, vector<T>& vec) {
-    os << "vector[";
-    for(T& el: vec) {
-        os << el;
-        os << " ";
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream& os, std::vector<T,U>& vec) {
+    os << "vec[";
+    for(auto it = vec.begin(); it != vec.end(); it++) {
+        if (it != vec.begin()) {
+            os << " ";
+        }
+        os << *it;
     }
     os << "]";
     return os;
 }
 
 template<typename T, typename U>
-ostream& operator<<(ostream& os, pair<T, U>& p) {
+std::ostream& operator<<(std::ostream& os, std::pair<T, U>& p) {
     os << "pair(" << p.first << " " << p.second << ")";
+    return os;
+}
+
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream& os, std::map<T, U>& mp) {
+    os << "map[";
+    for(auto it = mp.begin(); it != mp.end(); it++) {
+        if (it != mp.begin()) {
+            os << " ";
+        }
+        os << it->first << "=" << it->second;
+    }
+    os << "]";
+    return os;
+}
+
+template<typename T,typename U>
+std::ostream& operator<<(std::ostream& os, std::unordered_set<T,U>& s) {
+    os << "uset[";
+    auto it = s.begin();
+    os << *it;
+    it++;
+    for(++it; it != s.end(); it++) {
+        if (it != s.begin()) {
+            os << " ";
+        }
+        os << *it;
+    }
+    os << "]";
     return os;
 }
 

@@ -1,4 +1,4 @@
-// 2020 Abel Calluaud <abel0b@pm.me>
+// 2020 @abel0b
 
 #include <bits/stdc++.h>
 using namespace std;
